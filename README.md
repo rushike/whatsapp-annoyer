@@ -1,4 +1,4 @@
-# Whatsapp Annoyer
+# Whatsapp Annoyer (Chrome Version 85)
 
 ## Steps
 - Open runner.py
