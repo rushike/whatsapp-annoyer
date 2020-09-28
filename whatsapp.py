@@ -7,28 +7,23 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
-try:
-    import autoit
-except ModuleNotFoundError:
-    pass
+# try:
+#     import autoit
+# except ModuleNotFoundError:
+#     pass
 import time
 import datetime
 import os
 import argparse
 
+args = None
+parser = None
 sleeptime = 1
 chromedriver_path = "./chromedriver.exe"
-parser = argparse.ArgumentParser(description='PyWhatsapp Guide')
-parser.add_argument('--chrome_driver_path', action='store', type=str, default='./chromedriver.exe', help='chromedriver executable path (MAC and Windows path would be different)')
-parser.add_argument('--message', action='store', type=str, default='', help='Enter the msg you want to send')
-parser.add_argument('--remove_cache', action='store', type=str, default='False', help='Remove Cache | Scan QR again or Not')
-args = parser.parse_args()
 
-if args.remove_cache == 'True':
-    os.system('rm -rf User_Data/*')
 browser = None
 Contact = None
-message = None if args.message == '' else args.message
+message = ''
 Link = "https://web.whatsapp.com/"
 wait = None
 choice = None
@@ -159,63 +154,63 @@ def send_unsaved_contact_message():
         return
 
 
-def send_attachment():
-    # Attachment Drop Down Menu
-    clipButton = browser.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/div/span')
-    clipButton.click()
-    time.sleep(1)
+# def send_attachment():
+#     # Attachment Drop Down Menu
+#     clipButton = browser.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/div/span')
+#     clipButton.click()
+#     time.sleep(1)
 
-    # To send Videos and Images.
-    mediaButton = browser.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/span/div/div/ul/li[1]/button')
-    mediaButton.click()
-    time.sleep(3)
-    hour = datetime.datetime.now().hour
-    # After 5am and before 11am scheduled this.
-    if(hour >= 5 and hour <= 11):
-        image_path = os.getcwd() + "\\Media\\" + 'goodmorning.jpg'
-    # After 9pm and before 11pm schedule this
-    elif (hour >= 21 and hour <= 23):
-        image_path = os.getcwd() + "\\Media\\" + 'goodnight.jpg'
-    else:  # At any other time schedule this.
-        image_path = os.getcwd() + "\\Media\\" + 'howareyou.jpg'
-    # print(image_path)
+#     # To send Videos and Images.
+#     mediaButton = browser.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/span/div/div/ul/li[1]/button')
+#     mediaButton.click()
+#     time.sleep(3)
+#     hour = datetime.datetime.now().hour
+#     # After 5am and before 11am scheduled this.
+#     if(hour >= 5 and hour <= 11):
+#         image_path = os.getcwd() + "\\Media\\" + 'goodmorning.jpg'
+#     # After 9pm and before 11pm schedule this
+#     elif (hour >= 21 and hour <= 23):
+#         image_path = os.getcwd() + "\\Media\\" + 'goodnight.jpg'
+#     else:  # At any other time schedule this.
+#         image_path = os.getcwd() + "\\Media\\" + 'howareyou.jpg'
+#     # print(image_path)
 
-    autoit.control_focus("Open", "Edit1")
-    autoit.control_set_text("Open", "Edit1", image_path)
-    autoit.control_click("Open", "Button1")
+#     autoit.control_focus("Open", "Edit1")
+#     autoit.control_set_text("Open", "Edit1", image_path)
+#     autoit.control_click("Open", "Button1")
 
-    time.sleep(3)
-    whatsapp_send_button = browser.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/span[2]/div/div/span')
-    whatsapp_send_button.click()
+#     time.sleep(3)
+#     whatsapp_send_button = browser.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/span[2]/div/div/span')
+#     whatsapp_send_button.click()
 
 # Function to send Documents(PDF, Word file, PPT, etc.)
 
-def send_files():
-    global doc_filename
-    # Attachment Drop Down Menu
-    clipButton = browser.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/div/span')
-    clipButton.click()
-    time.sleep(1)
+# def send_files():
+#     global doc_filename
+#     # Attachment Drop Down Menu
+#     clipButton = browser.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/div/span')
+#     clipButton.click()
+#     time.sleep(1)
 
-    # To send a Document(PDF, Word file, PPT)
-    docButton = browser.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/span/div/div/ul/li[3]/button')
-    docButton.click()
-    time.sleep(1)
+#     # To send a Document(PDF, Word file, PPT)
+#     docButton = browser.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/span/div/div/ul/li[3]/button')
+#     docButton.click()
+#     time.sleep(1)
 
-    docPath = os.getcwd() + "\\Documents\\" + doc_filename
+#     docPath = os.getcwd() + "\\Documents\\" + doc_filename
 
-    autoit.control_focus("Open", "Edit1")
-    autoit.control_set_text("Open", "Edit1", (docPath))
-    autoit.control_click("Open", "Button1")
-    time.sleep(3)
-    whatsapp_send_button = browser.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/span[2]/div/div/span')
-    whatsapp_send_button.click()
+#     autoit.control_focus("Open", "Edit1")
+#     autoit.control_set_text("Open", "Edit1", (docPath))
+#     autoit.control_click("Open", "Button1")
+#     time.sleep(3)
+#     whatsapp_send_button = browser.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/span[2]/div/div/span')
+#     whatsapp_send_button.click()
 
 def sender():
-    global Contact, choice, docChoice, unsaved_Contacts
+    global Contact, choice, docChoice, unsaved_Contacts, message
     print(Contact)
     for i in Contact:
-        send_message(i)
+        send_message(i, message)
         print("Message sent to ", i)
         if(choice == "yes"):
             try:
@@ -265,7 +260,14 @@ def scheduler():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='PyWhatsapp Guide')
+    parser.add_argument('--chrome_driver_path', action='store', type=str, default='./chromedriver.exe', help='chromedriver executable path (MAC and Windows path would be different)')
+    parser.add_argument('--message', action='store', type=str, default='', help='Enter the msg you want to send')
+    parser.add_argument('--remove_cache', action='store', type=str, default='False', help='Remove Cache | Scan QR again or Not')
+    args = parser.parse_args()
 
+    if args.remove_cache == 'True':
+        os.system('rm -rf User_Data/*')
     print("Web Page Open")
 
     # Append more contact as input to send messages

@@ -1,3 +1,5 @@
 env
 User_Data
 __pycache__
+build
+dist
